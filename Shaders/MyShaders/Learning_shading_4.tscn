@@ -2,10 +2,12 @@
 
 [ext_resource path="res://Shaders/MyShaders/Learning_shading_4.gd" type="Script" id=1]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
 uniform vec2 mouse_pos = vec2(0.0, 0.0);
+//mouse_pos = mouse_pos * SCREEN_PIXEL_SIZE;
+
 
 //gl_fragColor = COLOR in godot Shaders
 //gl_FragCoord = FRAGCOORD in godot
@@ -49,8 +51,8 @@ void fragment(){
 
 "
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/mouse_pos = Vector2( 0, 0 )
 
 [node name="MyShader_4" type="Node2D"]
@@ -64,7 +66,7 @@ __meta__ = {
 }
 
 [node name="Shader" type="ColorRect" parent="."]
-material = SubResource( 4 )
+material = SubResource( 2 )
 margin_left = -11.0
 margin_top = 5.0
 margin_right = 1058.0

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Shaders/MyShaders/Learning_shading_3.gd" type="Script" id=1]
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
 void fragment(){
@@ -12,8 +12,8 @@ void fragment(){
 }
 "
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -32,11 +32,25 @@ void fragment(){
 [sub_resource type="ShaderMaterial" id=4]
 shader = SubResource( 3 )
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
 void fragment(){
 	COLOR = vec4(1.0, UV.y, 1.0, 0.5);
+//	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
+	
+}
+"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+void fragment(){ //gradient where r, g, b, alpha
+					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
+	COLOR = vec4(0.6, UV.y, 0.9, 0.9);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -50,7 +64,7 @@ code = "shader_type canvas_item;
 
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
-	COLOR = vec4(0.6, UV.y, 0.9, 0.9);
+	COLOR = vec4(0.9, UV.y, UV.x, 0.9);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -64,7 +78,7 @@ code = "shader_type canvas_item;
 
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
-	COLOR = vec4(0.9, UV.y, UV.x, 0.9);
+	COLOR = vec4(UV.x, UV.y, UV.x, 0.8);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -78,7 +92,7 @@ code = "shader_type canvas_item;
 
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
-	COLOR = vec4(UV.x, UV.y, UV.x, 0.8);
+	COLOR = vec4(abs(cos(TIME)) + UV.x, UV.y, UV.x, 0.8);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -92,7 +106,8 @@ code = "shader_type canvas_item;
 
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
-	COLOR = vec4(abs(cos(TIME)) + UV.x, UV.y, UV.x, 0.8);
+//	COLOR = vec4(abs(cos(TIME)) + UV.x, 0.0, 0.0, 0.8);
+	COLOR = vec4(1.0, abs(cos(TIME)) + 0.0 + UV.y, 0.9, 0.8);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -107,7 +122,7 @@ code = "shader_type canvas_item;
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
 //	COLOR = vec4(abs(cos(TIME)) + UV.x, 0.0, 0.0, 0.8);
-	COLOR = vec4(1.0, abs(cos(TIME)) + 0.0 + UV.y, 0.9, 0.8);
+	COLOR = vec4(1.0, abs(cos(TIME)) + 0.5 + UV.y, 0.9, 1.0);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -119,10 +134,14 @@ shader = SubResource( 17 )
 [sub_resource type="Shader" id=19]
 code = "shader_type canvas_item;
 
+uniform vec2 mouse_pos = vec2(0.0, 0.0);
+//float dist = distance(SCREEN_UV, mouse_pos);
+
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
 //	COLOR = vec4(abs(cos(TIME)) + UV.x, 0.0, 0.0, 0.8);
-	COLOR = vec4(1.0, abs(cos(TIME)) + 0.5 + UV.y, 0.9, 1.0);
+//	COLOR = vec4(1.0, abs(cos(TIME)) + 0.5 + UV.y, 0.9, 1.0);
+	COLOR = vec4(mouse_pos * SCREEN_PIXEL_SIZE, 1.0, 1.0);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -130,18 +149,18 @@ void fragment(){ //gradient where r, g, b, alpha
 
 [sub_resource type="ShaderMaterial" id=20]
 shader = SubResource( 19 )
+shader_param/mouse_pos = Vector2( 0, 0 )
 
 [sub_resource type="Shader" id=21]
 code = "shader_type canvas_item;
 
 uniform vec2 mouse_pos = vec2(0.0, 0.0);
-//float dist = distance(SCREEN_UV, mouse_pos);
 
 void fragment(){ //gradient where r, g, b, alpha
 					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
 //	COLOR = vec4(abs(cos(TIME)) + UV.x, 0.0, 0.0, 0.8);
 //	COLOR = vec4(1.0, abs(cos(TIME)) + 0.5 + UV.y, 0.9, 1.0);
-	COLOR = vec4(mouse_pos, 1.0, 1.0);
+	COLOR = vec4(1.0, mouse_pos * SCREEN_PIXEL_SIZE, 1.0);
 //	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
 	
 }
@@ -149,26 +168,6 @@ void fragment(){ //gradient where r, g, b, alpha
 
 [sub_resource type="ShaderMaterial" id=22]
 shader = SubResource( 21 )
-shader_param/mouse_pos = Vector2( 0, 0 )
-
-[sub_resource type="Shader" id=23]
-code = "shader_type canvas_item;
-
-uniform vec2 mouse_pos = vec2(0.0, 0.0);
-//float dist = distance(SCREEN_UV, mouse_pos);
-
-void fragment(){ //gradient where r, g, b, alpha
-					//but you replace either r,g, or b with x or y coordinates so you end up with a gradient 
-//	COLOR = vec4(abs(cos(TIME)) + UV.x, 0.0, 0.0, 0.8);
-//	COLOR = vec4(1.0, abs(cos(TIME)) + 0.5 + UV.y, 0.9, 1.0);
-	COLOR = vec4(1.0, mouse_pos , 1.0);
-//	COLOR = vec4(0.2, 0.7, 0.6, 1.0);
-	
-}
-"
-
-[sub_resource type="ShaderMaterial" id=24]
-shader = SubResource( 23 )
 shader_param/mouse_pos = Vector2( 0, 0 )
 
 [node name="MyShader_3" type="Node2D"]
@@ -182,7 +181,7 @@ __meta__ = {
 }
 
 [node name="Shader" type="ColorRect" parent="."]
-material = SubResource( 6 )
+material = SubResource( 2 )
 margin_left = 6.72073
 margin_top = -84.9601
 margin_right = 263.721
@@ -202,7 +201,7 @@ __meta__ = {
 }
 
 [node name="Shader3" type="ColorRect" parent="."]
-material = SubResource( 8 )
+material = SubResource( 6 )
 margin_left = 538.17
 margin_top = -97.018
 margin_right = 795.17
@@ -212,7 +211,7 @@ __meta__ = {
 }
 
 [node name="Shader4" type="ColorRect" parent="."]
-material = SubResource( 10 )
+material = SubResource( 8 )
 margin_left = 808.502
 margin_top = -107.781
 margin_right = 1065.5
@@ -222,7 +221,7 @@ __meta__ = {
 }
 
 [node name="Shader5" type="ColorRect" parent="."]
-material = SubResource( 12 )
+material = SubResource( 10 )
 margin_left = -12.0928
 margin_top = 153.541
 margin_right = 244.907
@@ -232,7 +231,7 @@ __meta__ = {
 }
 
 [node name="Shader6" type="ColorRect" parent="."]
-material = SubResource( 14 )
+material = SubResource( 12 )
 margin_left = 250.48
 margin_top = 126.055
 margin_right = 507.48
@@ -242,7 +241,7 @@ __meta__ = {
 }
 
 [node name="Shader7" type="ColorRect" parent="."]
-material = SubResource( 16 )
+material = SubResource( 14 )
 margin_left = 501.127
 margin_top = 118.215
 margin_right = 758.127
@@ -252,7 +251,7 @@ __meta__ = {
 }
 
 [node name="Shader8" type="ColorRect" parent="."]
-material = SubResource( 18 )
+material = SubResource( 16 )
 margin_left = 769.181
 margin_top = 119.634
 margin_right = 1026.18
@@ -262,7 +261,7 @@ __meta__ = {
 }
 
 [node name="Shader9" type="ColorRect" parent="."]
-material = SubResource( 20 )
+material = SubResource( 18 )
 margin_left = -2.46277
 margin_top = 356.944
 margin_right = 254.537
@@ -272,7 +271,7 @@ __meta__ = {
 }
 
 [node name="Shader10" type="ColorRect" parent="."]
-material = SubResource( 22 )
+material = SubResource( 20 )
 margin_left = 252.214
 margin_top = 341.388
 margin_right = 509.214
@@ -282,7 +281,7 @@ __meta__ = {
 }
 
 [node name="Shader11" type="ColorRect" parent="."]
-material = SubResource( 24 )
+material = SubResource( 22 )
 margin_left = 508.187
 margin_top = 348.459
 margin_right = 765.187
