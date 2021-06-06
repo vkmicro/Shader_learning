@@ -1,0 +1,181 @@
+[gd_scene load_steps=11 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+	//canvas item is a 2D shader
+	//spatial is 3D shader
+	
+
+	//Uniform input is used to pass data into a shader that will be the same across the entire shader.
+		//examples of data to pass - time since loading / start of shader, mouse position, canvas size (w x h)
+		
+	
+//Examples: vec2 SCREEN_UV = screen_texture that's currently shown on the screen (all the pixels and their colors)
+
+void fragment(){		//TIME - this is time in seconds since loading / start of shader
+							//Absolute value of sin(time) here replaced R - red value
+								//which makes it modulate / change color
+	COLOR = vec4(abs(sin(TIME)),0.0,0.0,0.8);
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+	//canvas item is a 2D shader
+	//spatial is 3D shader
+	
+
+	//Uniform input is used to pass data into a shader that will be the same across the entire shader.
+		//examples of data to pass - time since loading / start of shader, mouse position, canvas size (w x h)
+		
+	
+//Examples: vec2 SCREEN_UV = screen_texture that's currently shown on the screen (all the pixels and their colors)
+
+void fragment(){		//TIME - this is time in seconds since loading / start of shader
+							//Absolute value of sin(time) here replaced R - red value
+								//which makes it modulate / change color
+	COLOR = vec4(0.0,0.0,abs(cos(TIME)),0.5);
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+	//canvas item is a 2D shader
+	//spatial is 3D shader
+	
+
+	//Uniform input is used to pass data into a shader that will be the same across the entire shader.
+		//examples of data to pass - time since loading / start of shader, mouse position, canvas size (w x h)
+		
+	
+//Examples: vec2 SCREEN_UV = screen_texture that's currently shown on the screen (all the pixels and their colors)
+
+void fragment(){		//TIME - this is time in seconds since loading / start of shader
+							//Absolute value of sin(time) here replaced R - red value
+								//which makes it modulate / change color
+	COLOR = vec4(0.0,abs(tan(TIME)),0.0,0.5);
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+	//canvas item is a 2D shader
+	//spatial is 3D shader
+	
+
+	//Uniform input is used to pass data into a shader that will be the same across the entire shader.
+		//examples of data to pass - time since loading / start of shader, mouse position, canvas size (w x h)
+		
+	
+//Examples: vec2 SCREEN_UV = screen_texture that's currently shown on the screen (all the pixels and their colors)
+
+void fragment(){		//TIME - this is time in seconds since loading / start of shader
+							//Absolute value of sin(time) here replaced R - red value
+								//which makes it modulate / change color
+	COLOR = vec4(0.2,pow(abs(tan(TIME)),5),0.5,0.5);
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
+[sub_resource type="Shader" id=9]
+code = "shader_type canvas_item;
+	//canvas item is a 2D shader
+	//spatial is 3D shader
+	
+
+	//Uniform input is used to pass data into a shader that will be the same across the entire shader.
+		//examples of data to pass - time since loading / start of shader, mouse position, canvas size (w x h)
+		
+	
+//Examples: vec2 SCREEN_UV = screen_texture that's currently shown on the screen (all the pixels and their colors)
+
+void fragment(){		//TIME - this is time in seconds since loading / start of shader
+							//Absolute value of sin(time) here replaced R - red value
+								//which makes it modulate / change color
+	COLOR = vec4(1,pow(abs(tan(TIME)),50),1,0.5); // tan of time to the power of 50 (makes it an instant switch)
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
+
+[node name="MyShader_2" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1051.0
+margin_bottom = 633.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_right = 373.0
+margin_bottom = 257.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader2" type="ColorRect" parent="."]
+material = SubResource( 4 )
+margin_top = 213.0
+margin_right = 373.0
+margin_bottom = 470.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader3" type="ColorRect" parent="."]
+material = SubResource( 6 )
+margin_left = 320.243
+margin_top = -42.433
+margin_right = 693.243
+margin_bottom = 214.567
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader4" type="ColorRect" parent="."]
+material = SubResource( 8 )
+margin_left = 324.0
+margin_top = 212.0
+margin_right = 697.0
+margin_bottom = 469.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader5" type="ColorRect" parent="."]
+material = SubResource( 10 )
+margin_top = 416.0
+margin_right = 373.0
+margin_bottom = 673.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

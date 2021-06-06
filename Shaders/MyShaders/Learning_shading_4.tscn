@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Shaders/MyShaders/Learning_shading_4.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec2 mouse_pos = vec2(0.0, 0.0);
+
+//gl_fragColor = COLOR in godot Shaders
+//gl_FragCoord = FRAGCOORD in godot
+//u_resolution = SCREEN_PIXEL_SIZE  or 1.0/SCREEN_PIXEL_SIZE (can be passed manually)
+//u_time = TIME
+//u_mouse = manually provide like i did in shader 3 through uniform
+
+
+//\"st\" are texture coordinates, with \"s\" being the along the horizontal axis 
+	//into the texture, and \"t\" being the vertical.
+//One major stumbling block with graphics is 
+	//that you'll find lots of one letter names. \"xyz\" represents 
+		//locations in the world, whereas \"st\" represents locations along a surface area. 
+		//\"uv\" is also sometimes used for texture coordinates. 
+		//There is a difference between them, but it's not interesting or relevant to a beginner. 
+		//Just know that both are in use.
+
+//I would guess that \"pct\" is an abbreviation for \"percent\", 
+	//given that it ranges from 0.0 to 1.0. It's definitely a poor choice of variable name.
+
+//plot func takes vec2 coords (x,y as st) and percent (alpha basically)
+//float plot(vec2 st, float pct){ //where st > s = horizonal (so x??), t = vertical (so, y??), and pct = percent float
+//float plot(vec2 st, float pct){ //where st > s = horizonal (so x??), t = vertical (so, y??), and pct = percent float
+float plot(vec2 st){ //where st > s = horizonal (so x??), t = vertical (so, y??), and pct = percent float
+//	return smoothstep(pct-0.02, pct, st.y) - smoothstep(pct, pct+0.02, st.y); //this drows a line on y axis
+	return smoothstep(0.02, 0.0, abs(st.y - st.x));
+}
+
+void fragment(){
+	vec2 st = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE);
+	float y = st.x;
+	vec3 color = vec3(y);
+	
+	//plot line
+	float pct = plot(st);
+	COLOR = vec4((1.0 - pct) * color + pct * vec3(0.0,1.0,0.0), 0.8);
+	
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/mouse_pos = Vector2( 0, 0 )
+
+[node name="MyShader_4" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1051.0
+margin_bottom = 633.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource( 4 )
+margin_left = -11.0
+margin_top = 5.0
+margin_right = 1058.0
+margin_bottom = 629.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

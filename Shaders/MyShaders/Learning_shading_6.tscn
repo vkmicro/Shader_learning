@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="MyShader_4" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1051.0
+margin_bottom = 633.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader" type="ColorRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

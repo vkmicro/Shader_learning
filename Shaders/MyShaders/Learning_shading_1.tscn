@@ -1,0 +1,161 @@
+[gd_scene load_steps=9 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+	//canvas item is a 2D shader
+	//spatial is 3D shader
+
+
+//gl_fragColor = COLOR in godot Shaders
+//gl_FragCoord = FRAGCOORD in godot
+//u_resolution = SCREEN_PIXEL_SIZE  or 1.0/SCREEN_PIXEL_SIZE (can be passed manually)
+//u_time = TIME
+//u_mouse = manually provide like i did in shader 3 through uniform
+
+
+void fragment(){//The “fragment” processor is used to 
+					//set up the Godot material parameters per pixel. 
+					//This code runs on every visible pixel the object 
+					//or primitive is drawn to.
+					
+				//r, g, b, alpha / transparency
+	COLOR = vec4(0.8, 0.1, 0.1, 0.8);
+}
+
+//shader functions: 
+	//fragment - The “fragment” processor is used to set up the Godot material 
+		//parameters per pixel. This code runs on every visible pixel 
+		//the object or primitive is drawn to.
+			//i.e. void fragment() { ALBEDO = vec3(1.0, 0.0, 0.0); // use red for material albedo }
+	//light - The “light” processor runs per pixel too, but also runs for every 
+		//light that affects the object ( and does not run if no lights affect the object).
+			//i.e. - void light() { DIFFUSE_LIGHT = vec3(0.0, 1.0, 0.0); }
+	
+	//vertex - processing function is called for every vertex, 2D or 3D. For particles, 
+		//it’s called for every particle. 
+		//Depending on shader type, a different set of built-in inputs and 
+		//outputs are provided. In general, vertex functions are not that commonly used.
+		
+	//"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+void fragment(){//The “fragment” processor is used to 
+					//set up the Godot material parameters per pixel. 
+					//This code runs on every visible pixel the object 
+					//or primitive is drawn to.
+					
+				//r, g, b, alpha / transparency
+	COLOR = vec4(0.5, 0.1, 0.8, 0.4);
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+void fragment(){ //The “fragment” processor is used to 
+					//set up the Godot material parameters per pixel. 
+					//This code runs on every visible pixel the object 
+					//or primitive is drawn to.
+					
+				//r, g, b, alpha / transparency
+	COLOR = vec4(0.0, 0.0, 0.0, .8);
+}
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+
+vec4 green(){
+	return vec4(0.0, 1.0, 0.0, .5);
+}
+
+void fragment(){
+//	vec4 color = color_red();
+	vec4 color = green();
+	COLOR = color;
+}
+
+
+
+//void fragment(){ //The “fragment” processor is used to 
+//					//set up the Godot material parameters per pixel. 
+//					//This code runs on every visible pixel the object 
+//					//or primitive is drawn to.
+//
+//				//r, g, b, alpha / transparency
+//	COLOR = vec4(0.0, 0.0, 0.0, .5);
+//}
+
+
+
+
+"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
+[node name="MyShader_1" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = -1.0
+margin_right = 1050.0
+margin_bottom = 633.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader_red_tint" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_left = -40.5001
+margin_top = -37.9417
+margin_right = 588.5
+margin_bottom = 332.058
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader2_purple_tint" type="ColorRect" parent="."]
+material = SubResource( 4 )
+margin_left = 533.612
+margin_top = 275.767
+margin_right = 1162.61
+margin_bottom = 645.767
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader3_blackAndWhite" type="ColorRect" parent="."]
+material = SubResource( 6 )
+margin_left = 289.56
+margin_top = 151.648
+margin_right = 918.56
+margin_bottom = 521.648
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader4_function_calls" type="ColorRect" parent="."]
+material = SubResource( 8 )
+margin_left = -21.641
+margin_top = 288.979
+margin_right = 607.359
+margin_bottom = 658.979
+__meta__ = {
+"_edit_use_anchors_": false
+}
